@@ -19,7 +19,7 @@ function Converter() {
             }
         }
 
-    return <div className="Converter">
+    return <div>
         <label>
             Decimal:
             <input type="string" 

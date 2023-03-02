@@ -1,21 +1,20 @@
-import './App.css'
-import { Link, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Converter from './components/Converter';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-zinc-800 w-86 h-screen font-mono">
       <nav>
-        <div className="menu">
-          <Link to="/">Home</Link>
-          <Link to="/converter">Converter</Link>
+        <div className='flex justify-start bg-zinc-900 p-5 text-green-500 font-medium text-lg'>
+          <Link to="/" className='mx-4'>Home</Link>
+          <Link to="/converter">Characters</Link>
         </div>
       </nav>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/converter" component={Converter} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/converter" element={<Converter />} />
+      </Routes>
     </div>
   )
 }
