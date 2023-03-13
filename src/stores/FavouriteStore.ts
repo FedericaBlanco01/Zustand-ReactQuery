@@ -1,5 +1,6 @@
-import { create } from 'zustand';
+import { create, StateCreator } from 'zustand';
 import { Character } from '../types/characters';
+import { persist, PersistOptions } from 'zustand/middleware'
 
 export interface FavouriteStore {
     favourites: Character[];
@@ -7,9 +8,14 @@ export interface FavouriteStore {
     removeFavourite: (characterId: number) => void;
 }
 
+type MyPersist = (
+    config: StateCreator<FavouriteStore>,                                            
+    options: PersistOptions<FavouriteStore>                                          
+  ) => StateCreator<FavouriteStore>     
+
 
 export const useFavouriteStore = create<FavouriteStore>(
-   (set) => ({
+    (persist as MyPersist) ((set) => ({
     favourites: [],
     addFavourite: (character) => {
         set((state) => ({
@@ -21,5 +27,8 @@ export const useFavouriteStore = create<FavouriteStore>(
             favourites: state.favourites.filter((character) => character.id !== characterId),
         }));
     }
+    }),
+    {
+      name: 'favourite-storage',
     }
 ));
