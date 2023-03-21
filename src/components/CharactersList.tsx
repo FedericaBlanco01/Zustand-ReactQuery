@@ -5,6 +5,7 @@ import { getCharacters } from '../services/CharacterService';
 import { tw } from '../tw';
 import { Character } from '../types/characters';
 import PaginationNumbers from './PaginationNumbers';
+import Spinner from './Spinner';
 
 function CharactersList() {
     const navigate = useNavigate()
@@ -18,7 +19,7 @@ function CharactersList() {
         isFetching,
         isPreviousData} = useQuery(['characters', currentPage], () => fetchCharacters(currentPage), { keepPreviousData : true })
 
-    if (isLoading) return <div className='flex justify-center text-green-500 font-medium text-lg'>Loading...</div>
+    if (isLoading) return <Spinner/>
     if (isError) return <div className='flex justify-center text-green-500 font-medium text-lg'>Something went wrong, please try again later!</div>
 
     return (
