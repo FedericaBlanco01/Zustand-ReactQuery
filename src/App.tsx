@@ -6,10 +6,10 @@ import OneCharacter from './components/OneCharacter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import FavouritsList from './components/FavouritsList';
+import Places from './components/Places';
 
 function App() {
   const queryClient = new QueryClient()
-  console.log('app')
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer
@@ -29,7 +29,8 @@ function App() {
             <div className='flex justify-start'>
               <div className='mr-4 text-green-300'>The Rick and Morty Page</div>
               <Link to="/" className='mx-4'>Home</Link>
-              <Link to="/characters">Characters</Link>
+              <Link to="/characters" className='mr-4'>Characters</Link>
+              <Link to='/places'>Places</Link>
             </div>
               <Link to="/favourites" className='text-red-400'>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-red-400">
@@ -40,6 +41,7 @@ function App() {
         </nav>
         <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/places" element={<Places/>} />
           <Route path="/characters" element={<CharactersList/>} />
           <Route path="/characters/:id" element={<OneCharacter/>} />
           <Route path="/favourites" element={<FavouritsList/>} />
