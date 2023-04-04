@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+
 import { getCharacters } from "../services/CharacterService";
 import { tw } from "../tw";
 import { Character } from "../types/characters";
@@ -16,7 +17,7 @@ function CharactersList() {
   const { isLoading, isError, data, isFetching, isPreviousData } = useQuery(
     ["characters", currentPage],
     () => fetchCharacters(currentPage),
-    { keepPreviousData: true }
+    { keepPreviousData: true },
   );
 
   if (isLoading) return <Spinner />;
@@ -45,9 +46,12 @@ function CharactersList() {
                 alt={character.name}
                 className={tw(
                   "h-32 w-32 rounded-full border-2  shadow-lg",
-                  character.status === "Dead" && "border-red-500 shadow-red-500/50",
-                  character.status === "Alive" && "border-green-500 shadow-green-500/50",
-                  character.status === "unknown" && "border-yellow-500 shadow-yellow-500/50"
+                  character.status === "Dead" &&
+                    "border-red-500 shadow-red-500/50",
+                  character.status === "Alive" &&
+                    "border-green-500 shadow-green-500/50",
+                  character.status === "unknown" &&
+                    "border-yellow-500 shadow-yellow-500/50",
                 )}
               />
             </div>
@@ -57,13 +61,18 @@ function CharactersList() {
                   "text-md",
                   character.status === "Dead" && "text-red-500",
                   character.status === "Alive" && "text-green-500",
-                  character.status === "unknown" && "text-yellow-500"
+                  character.status === "unknown" && "text-yellow-500",
                 )}
               >
                 {" "}
-                {character.name.length > 18 ? character.name.slice(0, 8) + "..." : character.name}
+                {character.name.length > 18
+                  ? character.name.slice(0, 8) + "..."
+                  : character.name}
               </div>
-              <div className="text-white text-sm"> specie: {character.species}</div>
+              <div className="text-white text-sm">
+                {" "}
+                specie: {character.species}
+              </div>
             </div>
           </div>
         ))}

@@ -1,0 +1,26 @@
+{
+    "enableFiletypes": [
+      "astro"
+    ],
+    "ignorePaths": [
+      "*node_modules",
+      "*tsconfig.tsbuildinfo",
+      "cspell.json"
+    ],
+    "words": [
+      "favorited",
+      "heroicons",
+      "hookform",
+      "ianvs",
+      "iconify",
+      "lightit",
+      "Morty",
+      "pnpm",
+      "tailwindcss",
+      "tanstack",
+      "toastify",
+      "typedefs",
+      "typeof",
+      "zustand"
+    ]
+  }

@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Place } from "../types/Place";
 
 const PlaceCard = ({ place }: { place: Place }) => {

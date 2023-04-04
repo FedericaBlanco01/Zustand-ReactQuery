@@ -1,6 +1,12 @@
 import React from "react";
 
-const HeartButton = ({ like = false, handleClick }: { like: boolean; handleClick: (param: boolean) => void }) => {
+const HeartButton = ({
+  like = false,
+  handleClick,
+}: {
+  like: boolean;
+  handleClick: (param: boolean) => void;
+}) => {
   return (
     <div>
       {!like ? (
