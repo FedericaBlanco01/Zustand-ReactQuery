@@ -1,11 +1,14 @@
 import React, { useEffect, useMemo } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useInfiniteQuery } from "react-query";
-import { getPlaces, ResponsePlace } from "../services/CharacterService";
+
+import { ResponsePlace, getPlaces } from "../services/CharacterService";
 import PlaceCard from "./PlaceCard";
 import Spinner from "./Spinner";
 
 const Places = () => {
+  const [bottom, setBottom] = React.useState(false);
+
   useEffect(() => {
     var edgeSize = 150;
     var timer = setTimeout(function () {}, 0);
@@ -35,7 +38,7 @@ const Places = () => {
         document.body.clientHeight,
         document.documentElement.scrollHeight,
         document.documentElement.offsetHeight,
-        document.documentElement.clientHeight
+        document.documentElement.clientHeight,
       );
 
       // Calculate the maximum scroll offset in each direction. Since you can only
@@ -88,19 +91,41 @@ const Places = () => {
       }
     }
 
+    function scrollHandler(e: any) {
+      const el = e.target.documentElement;
+      const calculatedBottom =
+        el.scrollHeight - el.scrollTop === el.clientHeight;
+      setBottom(calculatedBottom);
+    }
+
     window.addEventListener("mousemove", handleMousemove, false);
-    return () => window.removeEventListener("mousemove", handleMousemove, false);
+    window.addEventListener("scroll", (e) => scrollHandler(e));
+
+    return () => {
+      window.removeEventListener("mousemove", handleMousemove, false);
+      window.removeEventListener("scroll", (e) => scrollHandler(e));
+    };
   }, []);
 
-  const { isLoading, isError, error, data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } =
-    useInfiniteQuery(["places"], getPlaces, {
-      getNextPageParam: (lastPage: ResponsePlace) => {
-        const previousPage = lastPage.info.prev ? +lastPage.info.prev.split("=")[1] : 0;
-        const currentPage = previousPage + 1;
-        if (currentPage === lastPage.info.pages) return false;
-        return currentPage + 1;
-      },
-    });
+  const {
+    isLoading,
+    isError,
+    error,
+    data,
+    fetchNextPage,
+    isFetching,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery(["places"], getPlaces, {
+    getNextPageParam: (lastPage: ResponsePlace) => {
+      const previousPage = lastPage.info.prev
+        ? +lastPage.info.prev.split("=")[1]
+        : 0;
+      const currentPage = previousPage + 1;
+      if (currentPage === lastPage.info.pages) return false;
+      return currentPage + 1;
+    },
+  });
 
   const places = useMemo(
     () =>
@@ -110,7 +135,7 @@ const Places = () => {
           results: [...prev.results, ...page.results],
         };
       }),
-    [data]
+    [data],
   );
 
   if (isLoading) return <Spinner />;
@@ -119,19 +144,22 @@ const Places = () => {
     <div>
       <InfiniteScroll
         dataLength={places ? places.results.length : 0}
-        next={() => fetchNextPage()}
+        next={() => setTimeout(fetchNextPage, 1000)}
         hasMore={!!hasNextPage}
         loader={<Spinner />}
       >
         <div className="grid grid-cols-1 gap-4 p-10 flex-grow">
           <div className="grid grid-cols-4 gap-4">
-            {places && places.results.map((place, index) => <PlaceCard key={index} place={place} />)}
+            {places &&
+              places.results.map((place, index) => (
+                <PlaceCard key={index} place={place} />
+              ))}
           </div>
         </div>
-        {hasNextPage && (
+        {((hasNextPage && !bottom) || (!hasNextPage && !bottom)) && (
           <div
             className="fixed bottom-0 bg-gradient-to-t from-zinc-800 w-full h-1/5 z-20 flex justify-around
-        hover:from-zinc-700"
+        hover:from-zinc-700 cursor-s-resize"
           ></div>
         )}
       </InfiniteScroll>

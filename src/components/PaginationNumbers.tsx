@@ -18,20 +18,25 @@ const PaginationNumbers = ({
   return (
     <div className="flex flex-col items-center">
       <span className="text-sm text-gray-700 dark:text-gray-400">
-        Showing <span className="font-semibold text-green-100">{currentPage}</span> to
-        <span className="font-semibold text-green-100 ml-2">{totalDisplaying}</span> of
-        <span className="font-semibold text-green-100 ml-2">{pages}</span> Entries
+        Showing{" "}
+        <span className="font-semibold text-green-100">{currentPage}</span> to
+        <span className="font-semibold text-green-100 ml-2">
+          {totalDisplaying}
+        </span>{" "}
+        of
+        <span className="font-semibold text-green-100 ml-2">{pages}</span>{" "}
+        Characters
       </span>
       <div className="inline-flex mt-2 xs:mt-0">
         <button
-          className="px-4 py-2 text-sm font-medium text-white bg-zinc-700 rounded-l hover:bg-zinc-900"
+          className="px-4 py-2 text-sm font-medium text-white bg-zinc-700 rounded-l border border-zinc-800 hover:bg-zinc-900"
           onClick={handlePrev}
           disabled={disable}
         >
           Prev
         </button>
         <button
-          className="px-4 py-2 text-sm font-medium text-white bg-zinc-700 border-0 border-l border-zinc-700 rounded-r hover:bg-zinc-900"
+          className="px-4 py-2 text-sm font-medium text-white bg-zinc-700 border border-zinc-800 rounded-r hover:bg-zinc-900"
           onClick={handleNext}
           disabled={disable}
         >
