@@ -37,7 +37,7 @@ function CharactersList() {
             className="w-full transform transition duration-500 hover:scale-125 hover:z-10 hover:bg-zinc-600 hover:shadow-zinc-500 
                     hover:shadow-lg flex justify-between py-4 font-medium text-lg bg-zinc-700 rounded-lg drop-shadow-xl cursor-pointer"
             onClick={() => {
-              navigate(`/characters/${character.id}`);
+              navigate(`/characters/api/${character.id}`);
             }}
           >
             <div className="flex justify-center pl-2">
