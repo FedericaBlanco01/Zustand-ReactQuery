@@ -8,11 +8,12 @@ export interface Option {
 interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
   label: string;
   options: Option[];
+  error: string | undefined;
 }
 
 const Select = forwardRef(
   (
-    { label, options, ...otherProps }: SelectProps,
+    { label, options, error, ...otherProps }: SelectProps,
     ref: ForwardedRef<HTMLSelectElement>,
   ) => {
     return (
@@ -31,6 +32,7 @@ const Select = forwardRef(
             </option>
           ))}
         </select>
+        {error && <p className="text-red-500 text-sm ml-2 mt-1">{error}</p>}
       </div>
     );
   },

@@ -13,6 +13,7 @@
     "spell-checker:staged": "git diff --cached --name-only | npx cspell --no-summary --no-progress --no-must-find-files --file-list stdin"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",
     "@types/prettier": "^2.7.2",
     "@types/react-router-dom": "5.3.3",
@@ -27,6 +28,7 @@
     "react-router-dom": "^6.8.2",
     "react-toastify": "^9.1.1",
     "tailwind-merge": "^0.1.1",
+    "zod": "^3.21.4",
     "zustand": "^4.3.5"
   },
   "devDependencies": {
