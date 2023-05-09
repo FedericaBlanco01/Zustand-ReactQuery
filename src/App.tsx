@@ -1,13 +1,15 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import CharactersList from "./components/CharactersList";
 import Home from "./components/Home";
 import OneCharacter from "./components/OneCharacter";
 import "react-toastify/dist/ReactToastify.css";
+import Characters from "./components/Characters";
 import FavoritesList from "./components/FavoritesList";
 import Places from "./components/Places";
+import SubmitCharacter from "./components/SubmitCharacter";
 import { tw } from "./tw";
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
               <Link
                 to="/"
                 className={tw(
-                  "mx-4",
+                  "mx-6",
                   location.pathname === "/" && "text-green-500",
                 )}
               >
@@ -46,8 +48,8 @@ function App() {
               <Link
                 to="/characters"
                 className={tw(
-                  "mr-4",
-                  location.pathname === "/characters" && "text-green-500",
+                  "mr-6",
+                  location.pathname === "/characters/api" && "text-green-500",
                 )}
               >
                 Characters
@@ -55,10 +57,20 @@ function App() {
               <Link
                 to="/places"
                 className={tw(
+                  "mr-6",
                   location.pathname === "/places" && "text-green-500",
                 )}
               >
                 Places
+              </Link>
+              <Link
+                to="/create/characters"
+                className={tw(
+                  location.pathname === "/create/characters" &&
+                    "text-green-500",
+                )}
+              >
+                New Characters
               </Link>
             </div>
             <Link to="/favorites">
@@ -79,9 +91,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/places" element={<Places />} />
-          <Route path="/characters" element={<CharactersList />} />
-          <Route path="/characters/:id" element={<OneCharacter />} />
+          <Route
+            path="/characters"
+            element={<Navigate to="/characters/api" />}
+          />
+          <Route path="/characters/*" element={<Characters />} />
+          <Route path="characters/api/:id" element={<OneCharacter />} />
           <Route path="/favorites" element={<FavoritesList />} />
+          <Route path="/create/characters" element={<SubmitCharacter />} />
         </Routes>
       </div>
     </QueryClientProvider>
